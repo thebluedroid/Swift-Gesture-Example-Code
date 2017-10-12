@@ -1,0 +1,60 @@
+{
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var myView: UIView!
+
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        imageView.isHidden = true
+    }
+ 
+    @IBAction func onViewMoved(_ sender: UIPanGestureRecognizer)
+    {
+        let point = sender.location(in: view)
+        myView.center = point
+    }
+    
+    @IBAction func onViewPinched(_ sender: UIPinchGestureRecognizer)
+    {
+        myView.transform = CGAffineTransform(scaleX: sender.scale, y: sender.scale)
+    }
+    
+  
+    @IBAction func onViewTapped(_ sender: UITapGestureRecognizer)
+    {
+        myView.backgroundColor = UIColor.black
+    }
+    
+  
+    @IBAction func onViewSwipeRight(_ sender: UISwipeGestureRecognizer)
+    {
+        myView.alpha -= 0.1
+    }
+   
+    //myView.alpha -= 0.1
+    @IBAction func onViewSwipedLeft(_ sender: UISwipeGestureRecognizer)
+    {
+        myView.alpha += 0.1
+    }
+    
+
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            if imageView.isHidden == true
+            {
+                imageView.isHidden = false
+            }
+            else
+            {
+                imageView.isHidden = true
+            }
+            print("Shake worked")
+        }
+    }
+}
+
